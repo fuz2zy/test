@@ -9,10 +9,6 @@ async def init_db():
         username TEXT,
         cart TEXT)""")
 
-        await db.execute("""CREATE TABLE IF NOT EXISTS photos (
-        file_id TEXT PRIMARY KEY,
-        tag TEXT)""")
-
         await db.execute("""CREATE TABLE IF NOT EXISTS dishes (
         dish_id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,

@@ -10,5 +10,6 @@ bot = Bot(token=token)
 dp = Dispatcher()
 admins = {}
 user_last_action = {}
+dishes_info = {}
 message_cooldown = 2
 callback_cooldown = 1

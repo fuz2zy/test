@@ -3859,3 +3859,15 @@ TypeError: 'NoneType' object is not subscriptable
 2026-02-19 18:27:08,403 - WARNING - Received SIGINT signal
 2026-02-19 18:27:08,404 - INFO - Polling stopped for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
 2026-02-19 18:27:08,405 - INFO - Polling stopped
+2026-02-19 20:02:53,225 - INFO - Start polling
+2026-02-19 20:02:54,295 - INFO - Run polling for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-19 20:03:03,525 - INFO - Update id=739652743 is handled. Duration 7 ms by bot id=7500951384
+2026-02-19 20:03:12,670 - WARNING - Received SIGINT signal
+2026-02-19 20:03:12,673 - INFO - Polling stopped for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-19 20:03:12,676 - INFO - Polling stopped
+2026-02-19 20:03:26,824 - INFO - Start polling
+2026-02-19 20:03:27,399 - INFO - Run polling for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-19 20:03:27,969 - INFO - Update id=739652744 is handled. Duration 434 ms by bot id=7500951384
+2026-02-19 20:04:55,034 - WARNING - Received SIGINT signal
+2026-02-19 20:04:55,035 - INFO - Polling stopped for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-19 20:04:55,036 - INFO - Polling stopped

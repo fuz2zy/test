@@ -1,12 +1,17 @@
-import aiosqlite
-from config import db_path
+
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from database.models import get_dishes
 
+
 start_keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Меню 🍽", callback_data="menu")]
+        [InlineKeyboardButton(text="Меню 🍽", callback_data="menu")],
+        [InlineKeyboardButton(text="Корзина 🛒", callback_data="open_cart")],
+        [InlineKeyboardButton(text="Помощь ❔", callback_data="help")]
     ])
+
+menu_button_keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Меню 🍽", callback_data="menu")]]
 
 
 async def dish_card_keyboard(category, num_in_category, cur_cart_ammount=0):

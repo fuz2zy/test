@@ -3,13 +3,6 @@ from core import admins, logger
 from config import db_path
 
 
-class Photos:
-    def __init__(self, data):
-        self.all = data
-        self.last = data[-1][0] if data else None
-        self.first = data[0][0] if data else None
-
-
 async def load_admins():
     async with aiosqlite.connect(db_path) as db:
         cursor = await db.execute("SELECT * FROM admins")
@@ -58,18 +51,6 @@ async def get_users():
     async with aiosqlite.connect(db_path) as db:
         cursor = await db.execute("SELECT * FROM users")
         return list(await cursor.fetchall())
-
-
-async def add_photo(file_id, tag):
-    async with aiosqlite.connect(db_path) as db:
-        await db.execute("INSERT OR IGNORE INTO photos VALUES (?, ?)", (file_id, tag))
-        await db.commit()
-
-
-async def get_photos(tag) -> Photos:
-    async with aiosqlite.connect(db_path) as db:
-        cursor = await db.execute("SELECT * FROM photos WHERE tag = ?", (tag,))
-        return Photos(list(await cursor.fetchall()))
 
 
 async def get_dish(dish_id) -> list:
