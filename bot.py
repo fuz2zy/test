@@ -6,6 +6,7 @@ from core import dp, bot, message_cooldown, callback_cooldown
 from handlers.start import start_router
 from handlers.menu import menu_router
 from handlers.cart import cart_router
+from handlers.web_app import web_app_router
 import asyncio
 
 
@@ -33,6 +34,7 @@ async def main():
     dp.include_router(start_router)
     dp.include_router(menu_router)
     dp.include_router(cart_router)
+    dp.include_router(web_app_router)
 
     await dp.start_polling(bot)
 
