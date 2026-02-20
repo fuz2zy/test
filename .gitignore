@@ -1,0 +1,5 @@
+.env
+__pychange__/
+*.pyc
+logs.log
+database/database.db

@@ -4377,3 +4377,23 @@ TypeError: object InlineKeyboardMarkup can't be used in 'await' expression
 2026-02-19 21:49:46,820 - INFO - Update id=739652850 is handled. Duration 220 ms by bot id=7500951384
 2026-02-19 21:49:48,043 - INFO - Update id=739652851 is handled. Duration 226 ms by bot id=7500951384
 2026-02-19 21:49:50,656 - INFO - Update id=739652852 is handled. Duration 323 ms by bot id=7500951384
+2026-02-20 10:50:02,490 - INFO - Start polling
+2026-02-20 10:50:03,191 - INFO - Run polling for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-20 10:50:11,477 - ERROR - Failed to fetch updates - TelegramUnauthorizedError: Telegram server says - Unauthorized
+2026-02-20 10:50:11,477 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7500951384)
+2026-02-20 10:50:12,745 - ERROR - Failed to fetch updates - TelegramUnauthorizedError: Telegram server says - Unauthorized
+2026-02-20 10:50:12,745 - WARNING - Sleep for 1.316111 seconds and try again... (tryings = 1, bot id = 7500951384)
+2026-02-20 10:50:14,191 - ERROR - Failed to fetch updates - TelegramUnauthorizedError: Telegram server says - Unauthorized
+2026-02-20 10:50:14,191 - WARNING - Sleep for 1.706633 seconds and try again... (tryings = 2, bot id = 7500951384)
+2026-02-20 10:50:15,965 - ERROR - Failed to fetch updates - TelegramUnauthorizedError: Telegram server says - Unauthorized
+2026-02-20 10:50:15,965 - WARNING - Sleep for 2.274454 seconds and try again... (tryings = 3, bot id = 7500951384)
+2026-02-20 10:50:18,315 - ERROR - Failed to fetch updates - TelegramUnauthorizedError: Telegram server says - Unauthorized
+2026-02-20 10:50:18,315 - WARNING - Sleep for 2.907365 seconds and try again... (tryings = 4, bot id = 7500951384)
+2026-02-20 10:50:19,683 - WARNING - Received SIGINT signal
+2026-02-20 10:50:19,684 - INFO - Polling stopped for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-20 10:50:19,684 - INFO - Polling stopped
+2026-02-20 11:09:32,838 - INFO - Start polling
+2026-02-20 11:09:37,349 - INFO - Run polling for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-20 11:09:50,101 - WARNING - Received SIGINT signal
+2026-02-20 11:09:50,127 - INFO - Polling stopped for bot @fuzzyteestbot id=7500951384 - 'Шлюхабот'
+2026-02-20 11:09:50,127 - INFO - Polling stopped
