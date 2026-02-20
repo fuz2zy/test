@@ -1,9 +1,8 @@
 from aiogram import Bot, Dispatcher
-from config import token
+from config import token, logs_path
 import logging
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s", handlers=[logging.StreamHandler(), logging.FileHandler(
-    "logs.log")])
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s", handlers=[logging.StreamHandler(), logging.FileHandler(logs_path)])
 logger = logging.getLogger(__name__)
 
 bot = Bot(token=token)

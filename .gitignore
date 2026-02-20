@@ -1,5 +1,7 @@
 .env
-__pychange__/
+__pycache__/
+**/__pycache__/
 *.pyc
+.idea/
 logs.log
 database/database.db
