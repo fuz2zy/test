@@ -1,23 +1,500 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кафе DEJAVU</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-
-<body>
-    <h1>Кафе DEJAVU</h1>
-    <button onclick="sendData()">Сделать заказ</button>
-
-    <script>
-        const tg = window.Telegram.WebApp
-        tg.expand()
-
-        function sendData() {
-            tg.sendData(JSON.stringify({order: "pizza"}))
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0e0c;
+            --surface: #1a1814;
+            --accent: #c8a96e;
+            --accent-dim: #8a7248;
+            --text: #f0ead8;
+            --text-dim: #7a7060;
+            --border: #2a2620;
         }
-    </script>
-</body>
-</html>
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            padding: 32px 24px 20px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+        }
+
+        .logo span {
+            display: block;
+            font-size: 11px;
+            font-family: 'Jost', sans-serif;
+            letter-spacing: 0.3em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .cart-btn {
+            background: none;
+            border: 1px solid var(--accent-dim);
+            color: var(--accent);
+            padding: 8px 16px;
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: var(--bg);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-dim);
+            padding: 10px 20px;
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .cat-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Dishes */
+        .menu {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .dish-card {
+            background: var(--surface);
+            display: grid;
+            grid-template-columns: 90px 1fr auto;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+            animation: fadeIn 0.4s ease both;
+        }
+
+        .dish-card:hover { border-color: var(--accent-dim); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dish-img {
+            width: 90px;
+            height: 70px;
+            object-fit: cover;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .dish-info { overflow: hidden; }
+
+        .dish-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .dish-desc {
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dish-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+
+        .dish-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .add-btn {
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: 1px solid var(--accent-dim);
+            color: var(--accent);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-btn:hover { background: var(--accent); color: var(--bg); }
+
+        .qty-display {
+            font-size: 13px;
+            color: var(--text);
+            min-width: 16px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover { border-color: #c0392b; color: #c0392b; }
+
+        /* Cart panel */
+        .cart-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--accent-dim);
+            padding: 20px 24px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 200;
+        }
+
+        .cart-panel.open { transform: translateY(0); }
+
+        .cart-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .cart-item-name { color: var(--text); }
+        .cart-item-price { color: var(--accent); }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0 8px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+        }
+
+        .order-btn {
+            width: 100%;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            padding: 14px;
+            font-family: 'Jost', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 8px;
+        }
+
+        .order-btn:hover { opacity: 0.85; }
+        .order-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .empty-cart {
+            text-align: center;
+            color: var(--text-dim);
+            padding: 20px 0;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 150;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .overlay.open { opacity: 1; pointer-events: all; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-top">
+        <div class="logo">
+            DEJAVU
+            <span>Кафе · Доставка</span>
+        </div>
+        <button class="cart-btn" onclick="toggleCart()">
+            Корзина
+            <div class="cart-count" id="cartCount">0</div>
+        </button>
+    </div>
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">Всё</button>
+        <button class="cat-btn" onclick="filterCategory('hot', this)">Горячее</button>
+        <button class="cat-btn" onclick="filterCategory('pizza', this)">Пицца</button>
+        <button class="cat-btn" onclick="filterCategory('salad', this)">Салаты</button>
+        <button class="cat-btn" onclick="filterCategory('drinks', this)">Напитки</button>
+    </div>
+</div>
+
+<div class="menu" id="menu"></div>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+<div class="cart-panel" id="cartPanel">
+    <div class="cart-title">
+        Корзина
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-total" id="cartTotal" style="display:none">
+        <span>Итого</span>
+        <span id="totalSum" style="color:var(--accent)"></span>
+    </div>
+    <button class="order-btn" id="orderBtn" onclick="sendOrder()">Оформить заказ</button>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp
+tg.expand()
+
+const dishes = [
+    { id: 1, name: "Карбонара", desc: "Паста, бекон, сливочный соус", price: 420, category: "hot", emoji: "🍝" },
+    { id: 2, name: "Маргарита", desc: "Томат, моцарелла, базилик", price: 350, category: "pizza", emoji: "🍕" },
+    { id: 3, name: "Пепперони", desc: "Острая колбаса, томат, сыр", price: 390, category: "pizza", emoji: "🍕" },
+    { id: 4, name: "Цезарь", desc: "Курица, сухарики, соус, пармезан", price: 280, category: "salad", emoji: "🥗" },
+    { id: 5, name: "Стейк из лосося", desc: "Лосось на гриле, овощи", price: 650, category: "hot", emoji: "🐟" },
+    { id: 6, name: "Греческий салат", desc: "Огурец, помидор, фета, оливки", price: 240, category: "salad", emoji: "🥗" },
+    { id: 7, name: "Латте", desc: "Эспрессо, молоко", price: 180, category: "drinks", emoji: "☕" },
+    { id: 8, name: "Свежевыжатый апельсин", desc: "100% натуральный сок", price: 200, category: "drinks", emoji: "🍊" },
+]
+
+const cart = {}
+let currentCategory = 'all'
+
+function renderMenu(category = 'all') {
+    const menu = document.getElementById('menu')
+    const filtered = category === 'all' ? dishes : dishes.filter(d => d.category === category)
+    menu.innerHTML = filtered.map((d, i) => `
+        <div class="dish-card" style="animation-delay:${i * 0.05}s">
+            <div class="dish-img">${d.emoji}</div>
+            <div class="dish-info">
+                <div class="dish-name">${d.name}</div>
+                <div class="dish-desc">${d.desc}</div>
+                <div class="dish-price">${d.price} ₽</div>
+            </div>
+            <div class="dish-actions">
+                <button class="add-btn" onclick="addToCart(${d.id})">+</button>
+                <span class="qty-display" id="qty-${d.id}">${cart[d.id] || ''}</span>
+                <button class="remove-btn" onclick="removeFromCart(${d.id})" style="display:${cart[d.id] ? 'flex' : 'none'}">−</button>
+            </div>
+        </div>
+    `).join('')
+}
+
+function filterCategory(cat, btn) {
+    currentCategory = cat
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'))
+    btn.classList.add('active')
+    renderMenu(cat)
+}
+
+function addToCart(id) {
+    cart[id] = (cart[id] || 0) + 1
+    updateCartUI()
+    renderMenu(currentCategory)
+}
+
+function removeFromCart(id) {
+    if (cart[id] > 1) cart[id]--
+    else delete cart[id]
+    updateCartUI()
+    renderMenu(currentCategory)
+}
+
+function updateCartUI() {
+    const total = Object.keys(cart).reduce((sum, id) => sum + (cart[id] || 0), 0)
+    document.getElementById('cartCount').textContent = total
+}
+
+function toggleCart() {
+    const panel = document.getElementById('cartPanel')
+    const overlay = document.getElementById('overlay')
+    panel.classList.toggle('open')
+    overlay.classList.toggle('open')
+    renderCartItems()
+}
+
+function renderCartItems() {
+    const items = document.getElementById('cartItems')
+    const totalEl = document.getElementById('cartTotal')
+    const totalSum = document.getElementById('totalSum')
+    const btn = document.getElementById('orderBtn')
+
+    const cartDishes = Object.keys(cart).map(id => ({
+        ...dishes.find(d => d.id == id),
+        qty: cart[id]
+    }))
+
+    if (cartDishes.length === 0) {
+        items.innerHTML = '<div class="empty-cart">Корзина пуста</div>'
+        totalEl.style.display = 'none'
+        btn.disabled = true
+        return
+    }
+
+    btn.disabled = false
+    let sum = 0
+    items.innerHTML = cartDishes.map(d => {
+        sum += d.price * d.qty
+        return `<div class="cart-item">
+            <span class="cart-item-name">${d.name} × ${d.qty}</span>
+            <span class="cart-item-price">${d.price * d.qty} ₽</span>
+        </div>`
+    }).join('')
+
+    totalEl.style.display = 'flex'
+    totalSum.textContent = sum + ' ₽'
+}
+
+function sendOrder() {
+    const cartDishes = Object.keys(cart).map(id => ({
+        id: parseInt(id),
+        name: dishes.find(d => d.id == id).name,
+        qty: cart[id],
+        price: dishes.find(d => d.id == id).price
+    }))
+
+    const total = cartDishes.reduce((sum, d) => sum + d.price * d.qty, 0)
+
+    tg.sendData(JSON.stringify({
+        items: cartDishes,
+        total: total
+    }))
+}
+
+renderMenu()
+</script>
+</body>
+            </html>
+            
