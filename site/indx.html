@@ -11,10 +11,10 @@
 <body>
 
 <div class="header">
-    <a href="">
-        <img class="header-img" src="images/header.jpg">
-    </a>
-    <div class="categories">
+
+    <img class="header-img" src="images/header.jpg">
+
+    <div class="categories" id="scrollCategories">
         <button class="cat-btn active" onclick="">Все</button>
         <button class="cat-btn" onclick="">Горячее</button>
         <button class="cat-btn" onclick="">Пицца</button>
@@ -30,16 +30,16 @@
 <div class="cart-panel" id="cartPanel">
     <div class="cart-title">
         Корзина
-        <button class="close-cart" onclick="">*</button>
+        <button class="close-cart" onclick="toggleCart()">*</button>
     </div>
-    <div id="cartItems"></div>
+    <div id="dishesInCart"></div>
         <div class="cart-total" id="cartTotal" style="display:none">
         <span>Итого</span>
         <span id="totalSum"></span>
     </div>
-        <button class="order-btn" id="orderBtn" onclick="">Оформить заказ</button>
+        <button class="btnBuy cart" id="orderBtn" onclick="">Оформить заказ</button>
 </div>
-
-<script src="script.js"></script>
+<script src="js/scrollClass.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

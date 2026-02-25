@@ -18,6 +18,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+
 body {
     height: 5000px;
     background: var(--bg);
@@ -44,7 +45,7 @@ body {
     display: flex;
     justify-content: space-around;
     gap: 0;
-    overflow-x: auto;
+    overflow-x: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
