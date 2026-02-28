@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from database.models import get_dishes
+from database.models import get_dishes, get_user_cart
 
 
 start_keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -11,8 +11,16 @@ start_keyboard = InlineKeyboardMarkup(inline_keyboard=[
 menu_button_keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Меню 🍽", callback_data="menu")]])
 
 
-def cart_keyboard():
-    pass
+def cart_keyboard(userCart):
+
+    return userCart
+
+    keyboard = InlineKeyboardMarkup()
+    buttons = [[InlineKeyboardButton(text="Меню 🍽", callback_data="menu")]]
+
+    for dish in userCart:
+        pass
+    
 
 
 webapp_keyboard = ReplyKeyboardMarkup(keyboard=[[
@@ -21,19 +29,20 @@ webapp_keyboard = ReplyKeyboardMarkup(keyboard=[[
 
 
 def dish_card_keyboard(category, num_in_category, cur_cart_ammount=0):
+    
     dishes = get_dishes(category)
     dish_id = dishes[num_in_category][0]
 
     if not cur_cart_ammount:
-        curt_button_row = [InlineKeyboardButton(text="Добавить в коорзину 🛒", callback_data=f"add_to_cart_{dish_id}_1_{category}_{num_in_category}")]
+        cart_button_row = [InlineKeyboardButton(text="Добавить в коорзину 🛒", callback_data=f"add_to_cart_{dish_id}_1_{category}_{num_in_category}")]
     else:
-        curt_button_row = [
+        cart_button_row = [
             InlineKeyboardButton(text=f"-", callback_data=f"del_to_cart_{dish_id}_1_{category}_{num_in_category}"),
             InlineKeyboardButton(text=f"🛒 {cur_cart_ammount}", callback_data=f"my_cart"),
             InlineKeyboardButton(text=f"+", callback_data=f"add_to_cart_{dish_id}_1_{category}_{num_in_category}")]
 
     return InlineKeyboardMarkup(inline_keyboard=[
-        curt_button_row,
+        cart_button_row,
         [InlineKeyboardButton(text="« Назад", callback_data=f"back_card_{category}_{num_in_category - 1}_{len(dishes) - 1}"),
          InlineKeyboardButton(text=f"☰{num_in_category + 1}/{len(dishes)}", callback_data=f"show_all_in_category_{category}_{num_in_category}"),
          InlineKeyboardButton(text="Вперед »", callback_data=f"next_card_{category}_{num_in_category + 1}_{len(dishes) - 1}")

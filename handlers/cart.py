@@ -1,7 +1,7 @@
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
-from keyboards.inline import menu_button_keyboard, cart_keyboard
+from keyboards.inline import menu_button_keyboard, cartKeyboard
 from database.models import get_user_cart, get_dish
 
 cart_router = Router()
@@ -22,6 +22,8 @@ async def send_my_cart(message: Message, user_id):
    
     user_cart = await get_user_cart(user_id)
     
+    await message.answer(cartKeyboard)
+
     if user_cart == {}:
         
         await message.answer("<blockquote>Ваша корзина еще  пуста, для начала выберете товары в  меню 🍽</blockquote>", reply_markup=menu_button_keyboard, parse_mode="html")
@@ -30,7 +32,7 @@ async def send_my_cart(message: Message, user_id):
 
     cntr = 0
     tot_price = 0
-    answ = "🛒 Ваша корзина:"
+    answ = "🛒 Ваша корзина:\n"
 
     for dish_id in user_cart:
         cntr += 1
@@ -39,7 +41,7 @@ async def send_my_cart(message: Message, user_id):
         
         answ += f"""
 <blockquote>{cntr}. {dish[1]}
-- {user_cart[dish_id]} шт. * {dish[5]}руб. = {user_cart[dish_id] * dish[5]} руб. </blockquote>"""
+- {user_cart[dish_id]} шт. * {dish[5]} руб. = {user_cart[dish_id] * dish[5]} руб. </blockquote>"""
     
-    answ += f"\n 💵 Общая стоимость: {tot_price} руб."
-    await message.answer(answ, parse_mode="html")
+    answ += f"\n\n 💵 Общая стоимость: {tot_price} руб."
+    await message.answer(answ, parse_mode="html", reply_markup=cartKeyboard)

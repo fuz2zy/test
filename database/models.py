@@ -99,28 +99,6 @@ def encode_user_cart(cart: dict) -> str:
     return result
 
 
-def decode_user_cart(cart: str) -> dict:
-    result = {}
-    card_id = ""
-    card_ammount = ""
-    flag_cart = True
-    for char in cart:
-        if char != "_":
-            if flag_cart:
-                card_id += char
-            else:
-                card_ammount += char
-        else:
-            if not flag_cart:
-                result[int(card_id)] = int(card_ammount)
-                card_id = ""
-                card_ammount = ""
-
-            flag_cart = not flag_cart
-
-    return result
-
-
 async def del_from_cart(user_id, card_id: int, ammount: int) -> int:
     user_cart = await get_user_cart(user_id)
     user_cart[card_id] = max(user_cart.get(card_id, 0) - ammount, 0)
@@ -142,3 +120,24 @@ async def add_to_cart(user_id, card_id: int, ammount: int) -> int:
         await db.commit()
     return res
 
+
+def decode_user_cart(cart: str) -> dict:
+    result = {}
+    card_id = ""
+    card_ammount = ""
+    flag_cart = True
+    for char in cart:
+        if char != "_":
+            if flag_cart:
+                card_id += char
+            else:
+                card_ammount += char
+        else:
+            if not flag_cart:
+                result[int(card_id)] = int(card_ammount)
+                card_id = ""
+                card_ammount = ""
+
+            flag_cart = not flag_cart
+
+    return result
