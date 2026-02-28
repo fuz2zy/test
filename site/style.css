@@ -1,0 +1,98 @@
+
+:root {
+    --font-color1: rgb(231, 119, 14);
+    --font-color2: white;
+    --border-color: rgb(59, 58, 58);
+} 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: black;
+    color: var(--font-color1);
+    height: 10000px;
+}
+
+header {
+    position: sticky;
+    top: 0px;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.header-logo {
+    font-size: 15px;
+    color: var(--font-color2);
+}
+
+.header-logo span {
+    display: block;
+    font-size: 40px;
+    text-align: center;
+    color: var(--font-color1);
+}
+
+.header-categories {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    justify-content: space-around;
+}
+
+.header-category {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--font-color2);
+}
+
+.header-category.active {
+    border-bottom: 1px solid var(--font-color1);
+    color: var(--font-color1);
+    transition: 0.3s;
+}
+
+main {
+
+}
+
+.button-cart {
+    z-index: 100;
+    position: fixed;
+    bottom: 3%;
+    font-size: 20px;
+    width: 75%;
+    height: 6%;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--font-color1);
+}
+
+.div-button-cart {
+    display: flex;
+    justify-content: center;
+}
+
+.cart-panel {
+
+    z-index: 200;
+    width: 100vw;
+    height: 60vh;
+    position: fixed;
+    bottom: 0;
+    background-color: red;
+
+}
+
