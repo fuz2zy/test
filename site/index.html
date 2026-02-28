@@ -24,9 +24,11 @@
 
         <div class="header-categories">
 
+            
             <button class="header-category active" data-category="main">Главная</button>
             <button class="header-category" data-category="salads">Салаты</button>
             <button class="header-category" data-category="drinks">Напитки</button>
+        
 
         </div>
 
@@ -41,18 +43,28 @@
     </footer>
 
     <div class="div-button-cart">
-        <button class="button-cart">Корзина</button>
+        <button class="button-cart" onclick="toggleCart()">Корзина</button>
     </div>
 
-    <div class="cart-panel">
+    <div class="cart-panel" id="cart-panel">
+
+        <div class="cart-top">
+            Корзина
+            <span class="totalCartSum">Итого: 10р</span>
+        </div>
+
+        <div class="cart-content empty"> 
+            Корзина пуста...
+        </div>
 
         <div class="div-button-cart">
-            <button class="button-cart">Оформить заказ</button>
+            <button class="button-cart" onclick="toggleCart()">Оформить заказ</button>
         </div>
 
     </div>
 
-    
+
+    <script src="JS/cart.js"></script>
 
 </body>
 
