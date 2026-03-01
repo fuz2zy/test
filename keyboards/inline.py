@@ -11,9 +11,9 @@ start_keyboard = InlineKeyboardMarkup(inline_keyboard=[
 menu_button_keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Меню 🍽", callback_data="menu")]])
 
 
-def cart_keyboard(userCart):
+def cartKeyboard(userCart):
 
-    return userCart
+    print(userCart)
 
     keyboard = InlineKeyboardMarkup()
     buttons = [[InlineKeyboardButton(text="Меню 🍽", callback_data="menu")]]

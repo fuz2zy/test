@@ -21,8 +21,7 @@ async def on_command_my_cart(message: Message):
 async def send_my_cart(message: Message, user_id):
    
     user_cart = await get_user_cart(user_id)
-    
-    await message.answer(cartKeyboard)
+
 
     if user_cart == {}:
         
@@ -44,4 +43,5 @@ async def send_my_cart(message: Message, user_id):
 - {user_cart[dish_id]} шт. * {dish[5]} руб. = {user_cart[dish_id] * dish[5]} руб. </blockquote>"""
     
     answ += f"\n\n 💵 Общая стоимость: {tot_price} руб."
-    await message.answer(answ, parse_mode="html", reply_markup=cartKeyboard)
+    
+    await message.answer(answ, parse_mode="html")
